@@ -9,24 +9,33 @@
 </head>
 <body>
     <header>
-        <div id="timer"></div>
-            <div id="counter"><span class="time:">Time: </span>75</div>
         <a href="#view-highscores">View Highscores</a>
-    </header>
-    <div class="container">
         <div class="large-font">Coding Quiz Challenge</div>
         <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
-        <button id="start-btn" class ="start-btn btn">Start Quiz</button>
-        <button id="next-btn" class ="next-btn btn hide">Next</button>
-        <div id="question-container" class="hide">
+    </header>
+    <div class="container">
+        <div id="timer"></div>
+
+        <div id="pregame-container">
+            <button id="start-btn" class ="start-btn btn">Start Quiz</button>            
+        </div>
+
+        <div id="game-container" class="hide">
+            <div id="counter">75</div>
             <div id="question">Question</div>
-            <div id="answer-buttons" class="btn-grid">
+            <div id="answers" class="btn-grid">
                 <button class="btn">Answer 1</button>
                 <button class="btn">Answer 2</button>
                 <button class="btn">Answer 3</button>
                 <button class="btn">Answer 4</button>
             </div>
         </div>    
+
+        <div id="postgame-container" class="hide">
+            <h1>Done!</h1>
+            <input type='text' placeholder='Initials' />
+            <input type='submit' text='Save Score' />
+        </div>
     </div>            
 
     </div>

@@ -9,7 +9,7 @@ Once all questions have been answered or if the timer reaches zero, the quiz wil
 Once the quiz is over, the user will be able to enter their initials in order to save their score. 
 
 ```md
-![alt text](assets/images/screenshot.png)
+![Screenshot of Quiz](assets/images/QuizScreenshot.jpg) 
 ```
 
 ## Credits

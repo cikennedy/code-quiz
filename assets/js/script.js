@@ -1,121 +1,136 @@
-const startButton = document.getElementById('start-btn')
-const nextButton = document.getElementById('next-btn')
-const questionContainerElement = document.getElementById('question-container')
-const questionElement = document.getElementById('question')
-const answerButtonsElement = document.getElementById('answer-btns')
+//Cannot figure out the local storage save function and stuck on several items
 
-let shuffledQuestions, currentQuestionIndex
-
-// Attach event listener to start button to call startGame function on click
-startButton.addEventListener("click", startGame);
-
-function startGame() {
-    console.log('Started')
-    startButton.classList.add('hide')
-    shuffledQuestions = questions.sort(() => Math.random() - .5)
-    currentQuestionIndex = 0
-    questionContainerElement.classList.remove('hide')
-    setNextQuestion()
-}
-
-function setNextQuestion() {
-    resetState()
-    showQuestion(shuffledQuestions)[currentQuestionIndex]
-}
-
-function showQuestion(question) {
-    questionElement.innerText = question.question
-    question.answers.forEach(answer => {
-        const button = document.createElement('button')
-        button.innerText = answer.textbutton.classList.add('btn')
-        if (answer.correct) {
-            button.dataset.correct = answer.correct
+const quiz = {
+    questions: [
+        {
+            question: "Commonly used data types DO NOT include:",
+            answers: [
+                '1. strings',
+                '2. booleans',
+                '3. alerts',
+                '4. numbers',
+            ],
+            correctAnswerIndex: 2,
+        },
+        {
+            question: "The condition in an if / else statement is enclosed within _____.",
+            answers: [
+                '1. quotes', 
+                '2. curly brackets', 
+                '3. parentheses',
+                '4. square brackets',
+            ],
+            correctAnswerIndex: 2,
+        
+        },
+        {
+            question: "Arrays in JavaScript can be used to store _____.",
+            answers: [
+                '1. numbers and strings', 
+                '2. other arrays', 
+                '3. booleans', 
+                '4. all of the above'
+            ],
+            correctAnswerIndex: 3,
+        },
+        {
+            question: "String values must be enclosed within _____ when being assigned to variables.",
+            answers: [
+                '1. commas', 
+                '2. curly brackets', 
+                '3. quotes',
+                '4. parentheses',
+            ],
+            correctAnswerIndex: 2,
+        },
+        {
+            question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+            answers: [
+                '1. JavaScript', 
+                '2. terminal / bash', 
+                '3. for loops', 
+                '4. console.log'
+            ],
+            correctAnswerIndex: 3,
         }
-        button.addEventListener('click', selectAnswer)
-        answerButtonsElement.appendChild(button)
-    })
+    ]
+};
+
+const game = {
+    currentQuestionIndex: 0,
+    score: 0,
+};
+
+const startBtn = document.getElementById('start-btn');
+
+const gameContainer = document.getElementById('game-container');
+const postgameContainer = document.getElementById('postgame-container');
+const pregameContainer = document.getElementById('pregame-container');
+
+const gameQuestionContainer = document.getElementById('question');
+const gameAnswersContainer = document.getElementById('answers');
+
+function finish() {
+    postgameContainer.getElementsByTagName('h1')[0].innerText = `${game.score}/${quiz.questions.length}`;
+
+    gameContainer.classList.add('hide');
+    postgameContainer.classList.remove('hide');    
+    pregameContainer.classList.add('hide');
 }
 
-function resetState() {
-    nextButton.classList.add('hide')
-    while (answerButtonElements.firstChild) {
-        answerButtonsElement.removeChild
-        (answerButtonsElement.firstChild)
+function reset() {
+    game.currentQuestionIndex = 0;
+    game.score = 0;
+
+    gameContainer.classList.add('hide');
+    postgameContainer.classList.add('hide');    
+    pregameContainer.classList.remove('hide');
+}
+
+function start() {
+    game.currentQuestionIndex = 0;
+    game.score = 0;
+
+    gameContainer.classList.remove('hide');
+    postgameContainer.classList.add('hide');
+    pregameContainer.classList.add('hide');
+
+    ask();
+}
+
+function ask() {
+    if (game.currentQuestionIndex >= quiz.questions.length) {
+        finish();
+    }
+    else {
+        const question = quiz.questions[game.currentQuestionIndex];
+
+        gameQuestionContainer.innerText = question.question;
+     
+        [...gameAnswersContainer.children].forEach((element, idx) => {
+            element.innerText = question.answers[idx];
+        });
     }
 }
 
+function answer(e) {
+    const question = quiz.questions[game.currentQuestionIndex];
+    // Cannot figure out if index of clicked button === correct answer index?
+    const correct = [...e.target.parentNode.children].indexOf(e.target) === question.correctAnswerIndex;
 
-// the below function is relevant to the stylized colored buttons and next buttons on the tutorial
-function selectAnswer() {
-    const selectedButton = e.target
-    const correct = selectedButton.dataset.correct
-    setStatusClass(document.body, correct)
-    Array.from(answerButtonsElement.children).forEach(button => {
-        setStatusClass(button, button.dataset.correct)
-    })
+    game.currentQuestionIndex += 1;
+    game.score = correct ? game.score + 1 : game.score;
+
+    ask();
 }
 
-// the below function is relevant to the stylized colored buttons and next buttons on the tutorial
-function setStatusClass(element, correct) {
-    clearStatusClass(element)
-    if (correct) {
-        element.classlist.add('correct')
-    } else {
-        element.classList.add('wrong')
-    }
-}
+// attach listeners
 
+[...gameAnswersContainer.children].forEach(element => {
+    element.onclick = answer;
+});
 
-//Created array of questions listed in the .gif file 
-var questions = [
-    {
-        question: "Commonly used data types DO NOT include:",
-        answers: [
-            {text: '1. strings', correct: false},
-            {text: '2. booleans', correct: false},
-            {text: '3. alerts', correct: true},
-            {text: '4. numbers', correct: false}
-        ] 
-      },
-      
-    {
-        question: "The condition in an if / else statement is enclosed within _____.",
-        answers: [
-            {text: '1. quotes', correct: false},
-            {text: '2. curly brackets', correct: false},
-            {text: '3. parentheses', correct: true},
-            {text: '4. square brackets', correct: false}
-        ]
-    
-      },
-    {
-        question: "Arrays in JavaScript can be used to store _____.",
-        answers: [
-            {text: '1. numbers and strings', correct: false},
-            {text: '2. other arrays', correct: false},
-            {text: '3. booleans', correct: false},
-            {text: '4. all of the above', correct: true}
-        ]
-      },
-    {
-        question: "String values must be enclosed within _____ when being assigned to variables.",
-        answers: [
-            {text: '1. commas', correct: false},
-            {text: '2. curly brackets', correct: false},
-            {text: '3. quotes', correct: true},
-            {text: '4. parentheses', correct: true}
-        ]
-      },
-    {
-        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
-        answers: [
-            {text: '1. JavaScript', correct: false},
-            {text: '2. terminal / bash', correct: false},
-            {text: '3. for loops', correct: true},
-            {text: '4. console.log', correct: true}
-        ]
-      }
-    ];
+startBtn.onclick = start;
 
 
 
