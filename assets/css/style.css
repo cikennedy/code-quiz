@@ -3,9 +3,17 @@
     font-family:'Times New Roman', Times, serif
 }
 
-header{
+a {
     position: fixed;
     top: 0px;
+    left: 0px;
+}
+
+/* Can't get the timer to go to top right. Stuck on this */
+#timer {
+    position: fixed;
+    top: 0px;
+    right: 0px;
 }
 
 .large-font {
@@ -44,18 +52,15 @@ body {
     border: 1px solid;
     background-color: purple;
     color: white;
-    border-radius: 3px;
+    border-radius: 7px;
     outline: none;
-    padding: 5px 10 px;
+    padding: 5px 10px;
 }
 
 .btn:hover {
     background-color: rgb(172, 112, 172);
+    cursor: pointer;
 }
 
-header {
-    padding: 40px;
-    text-align: center;
-    border-bottom:30px #879274;
-  }
+
 
