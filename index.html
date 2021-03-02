@@ -9,15 +9,16 @@
 </head>
 <body>
     <header>
+        <div id="timer"></div>
+        <!--Add the Time: section to the below counter-->
+            <div id="counter"><span class="time:">Time: </span>75</div>
+            <a href="#view-highscores">View Highscores</a>
+    </header>
+    <div class="container">
         <div class="large-font">Coding Quiz Challenge</div>
         <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers will penalize your score/time by ten seconds!</p>
         <button id="start-btn" class ="start-btn btn">Start Quiz</button>
         <button id="next-btn" class ="next-btn btn hide">Next</button>
-    </header>
-    <div class="container">
-        <div id="timer"></div>
-        <!--Add the Time: section to the below counter-->
-            <div id="counter">75</div>
         <div id="question-container" class="hide">
             <div id="question">Question</div>
             <div id="answer-buttons" class="btn-grid">
